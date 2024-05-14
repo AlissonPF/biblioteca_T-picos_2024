@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MinimalApiProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240425121355_vamove")]
-    partial class vamove
+    [Migration("20240514173858_CriandoBanco")]
+    partial class CriandoBanco
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.5");
 
             modelBuilder.Entity("MinimalApiProject.Cliente", b =>
                 {

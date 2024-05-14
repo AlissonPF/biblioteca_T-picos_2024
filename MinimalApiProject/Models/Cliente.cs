@@ -3,13 +3,16 @@
 public class Cliente
 {
   public string Id { get; set; }
-  public string Nome { get; set; }
-  public string Endereco { get; set; }
-  public string Email { get; set; }
-  public string Telefone { get; set; }
+  public string? Nome { get; set; }
+  public string? Endereco { get; set; }
+  public string? Email { get; set; }
+  public string? Telefone { get; set; }
   public DateTime DataCadastro { get; set; }
 
-  public Cliente() { }
+  public Cliente() { 
+    Id = Guid.NewGuid().ToString();
+    DataCadastro = DateTime.Now;
+  }
 
   public Cliente(string nome, string endereco, string email, string telefone, DateTime dataCadastro)
   {

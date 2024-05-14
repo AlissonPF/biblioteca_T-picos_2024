@@ -9,20 +9,20 @@ public class ClienteController
 {
   private readonly BibliotecaContext _ctx;
 
-  [HttpPost]
-  public IActionResult CadastraCliente([FromBody] Cliente cliente)
-  {
-    Cliente clienteExiste = _ctx.Clientes.FirstOrDefault(c => c.Email == cliente.Email);
+  // [HttpPost]
+  // public IActionResult CadastraCliente([FromBody] Cliente cliente)
+  // {
+  //   Cliente clienteExiste = _ctx.Clientes.FirstOrDefault(c => c.Email == cliente.Email);
 
-    if (clienteExiste != null)
-    {
-      return BadRequest(e.message);
-    }
+  //   if (clienteExiste != null)
+  //   {
+  //     return BadRequest(e.message);
+  //   }
 
-    _ctx.Clientes.Add(cliente);
-    _ctx.SaveChanges();
+  //   _ctx.Clientes.Add(cliente);
+  //   _ctx.SaveChanges();
 
-    return Ok(cliente, "Cliente cadastrado com sucesso.");
-  }
+  //   return Ok(cliente, "Cliente cadastrado com sucesso.");
+  // }
 
 }

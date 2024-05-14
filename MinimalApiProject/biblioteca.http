@@ -1,0 +1,66 @@
+
+# CLIENTE #
+
+### Criação de um novo Cliente
+POST http://localhost:5234/cliente/cadastrar
+Content-Type: application/json
+
+{
+    "nome": "Cliente1",
+    "endereco": "Rua do cliente 1",
+    "email": "cliente1@email.com",
+    "telefone" : "99876-5432"
+}
+
+### Listar todos os clientes
+GET http://localhost:5234/cliente/listar
+
+### Deletar cliente
+DELETE http://localhost:5234/cliente/deletar/Cliente1
+
+
+### Alterar Cliente
+PUT http://localhost:5234/cliente/atualizar/Cliente1
+Content-Type: application/json
+
+{
+    "nome": "ClienteAtualizado",
+    "endereco": "Rua do cliente 1Atualizado",
+    "email": "clienteAtualizado@email.com",
+    "telefone" : "99876-2222"
+}
+
+
+
+# LIVROS #
+
+### Criação de um novo livro
+POST http://localhost:5234/livro/cadastrar
+Content-Type: application/json
+
+{
+    "titulo": "Livro1",
+    "autor": "Autor do Livro 1",
+    "isbn": "123",
+    "categoria" : "Romance",
+    "status" : "Vendido"
+}
+
+### Listar todos os livros
+GET http://localhost:5234/livro/listar
+
+### Deletar livro
+DELETE http://localhost:5234/livro/deletar/Livro1
+
+
+### Alterar livro
+PUT http://localhost:5234/livro/atualizar/Livro1
+Content-Type: application/json
+
+{
+    "titulo": "LivroAtualizado",
+    "autor": "Autor do Livro Atualizado",
+    "isbn": "12345",
+    "categoria" : "Suspense",
+    "status" : "A venda"
+}

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MinimalApiProject.Migrations
 {
     /// <inheritdoc />
-    public partial class vamove : Migration
+    public partial class CriandoBanco : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
