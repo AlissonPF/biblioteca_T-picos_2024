@@ -132,5 +132,68 @@ app.MapPut("/livro/atualizar/{titulo}", ([FromRoute] string titulo, [FromBody] L
     return Results.Ok($"Livro {livroAtualizado.Titulo} alterado com sucesso!");
 });
 
+// Fim CRUD livros
+
+// CRUD Emprestimo
+
+app.MapGet("/emprestimo/listar", ([FromServices] AppDbContext ctx) =>
+{
+    if (ctx.Emprestimos.Any())
+    {
+        List<Emprestimo> emprestimoList = ctx.Emprestimos.ToList();
+        return Results.Ok(emprestimoList);
+    }
+    return Results.NotFound("Não existem emprestimos na tabela");
+});
+
+app.MapPost("/emprestimo/cadastrar", ([FromServices] AppDbContext ctx, [FromBody] Emprestimo emprestimo) =>
+{
+
+    Cliente? cliente = ctx.Clientes.FirstOrDefault(l => l.Id == emprestimo.ClienteId);
+    Livro? livro = ctx.Livros.FirstOrDefault(l => l.Id == emprestimo.LivroId);
+
+    if (cliente is null || livro is null)
+    {
+        return Results.BadRequest("Cliente ou Livro não encontrado!");
+    }
+
+    emprestimo.Cliente = cliente;
+    emprestimo.Livro = livro;
+
+    ctx.Emprestimos.Add(emprestimo);
+    ctx.SaveChanges();
+    return Results.Created("Emprestimo cadastrado com sucesso! ", emprestimo);
+});
+
+app.MapDelete("/emprestimo/deletar/{id}", ([FromServices] AppDbContext ctx, [FromRoute] string id) =>
+{
+    Emprestimo? emprestimoExistente = ctx.Emprestimos.FirstOrDefault(p => p.Id == id);
+
+        if (emprestimoExistente == null)
+        {
+            return Results.NotFound("Emprestimo não encontrado.");
+        }
+
+        ctx.Emprestimos.Remove(emprestimoExistente);
+        ctx.SaveChanges();
+
+        return Results.Ok("Emprestimo deletado com sucesso!");
+});
+
+app.MapPut("/emprestimo/atualizar/{id}", ([FromRoute] string id, [FromBody] Emprestimo emprestimoAtualizado, [FromServices] AppDbContext ctx) =>
+{
+
+    Emprestimo? emprestimoExiste = ctx.Emprestimos.FirstOrDefault(p => p.Id == id);
+
+    if (emprestimoExiste is null)
+    {
+        return Results.NotFound("Emprestimo nao encontrado!");
+    }
+
+    emprestimoExiste.StatusEmprestimo = emprestimoAtualizado.StatusEmprestimo;
+
+    ctx.SaveChanges();
+    return Results.Ok("Emprestimo atualizado");
+});
 
 app.Run();

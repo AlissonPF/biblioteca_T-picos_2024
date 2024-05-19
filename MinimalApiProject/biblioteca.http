@@ -16,7 +16,7 @@ Content-Type: application/json
 GET http://localhost:5234/cliente/listar
 
 ### Deletar cliente
-DELETE http://localhost:5234/cliente/deletar/Cliente1
+DELETE http://localhost:5234/cliente/deletar/ClienteAtualizado
 
 
 ### Alterar Cliente
@@ -50,7 +50,7 @@ Content-Type: application/json
 GET http://localhost:5234/livro/listar
 
 ### Deletar livro
-DELETE http://localhost:5234/livro/deletar/Livro1
+DELETE http://localhost:5234/livro/deletar/LivroAtualizado
 
 
 ### Alterar livro
@@ -63,4 +63,30 @@ Content-Type: application/json
     "isbn": "12345",
     "categoria" : "Suspense",
     "status" : "A venda"
+}
+
+
+# Emprestimos #
+
+### Cadastrar emprestimo
+POST http://localhost:5234/emprestimo/cadastrar
+Content-Type: application/json
+
+{
+    "ClienteId": "20e3903c-5316-40df-8c49-8f4353cc83e7",
+    "LivroId": "af1b8e45-ad25-4931-8913-ae0d50c537e9"
+}
+
+### Listar emprestimo
+GET http://localhost:5234/emprestimo/listar
+
+### Deletar emprestimo
+DELETE http://localhost:5234/emprestimo/deletar/bbf0228b-a1d4-422a-9251-842bc0062ba5
+
+### Alterar emprestimo
+PUT http://localhost:5234/emprestimo/atualizar/bbf0228b-a1d4-422a-9251-842bc0062ba5
+Content-Type: application/json
+
+{
+    "StatusEmprestimo": "devolvido"
 }
