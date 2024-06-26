@@ -6,10 +6,10 @@ POST http://localhost:5234/cliente/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "Cliente1",
-    "endereco": "Rua do cliente 1",
+    "nome": "Cliente2",
+    "endereco": "Rua do cliente 2",
     "email": "cliente1@email.com",
-    "telefone" : "99876-5432"
+    "telefone" : "99543-6421"
 }
 
 ### Listar todos os clientes
