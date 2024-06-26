@@ -73,8 +73,8 @@ POST http://localhost:5234/emprestimo/cadastrar
 Content-Type: application/json
 
 {
-    "ClienteId": "20e3903c-5316-40df-8c49-8f4353cc83e7",
-    "LivroId": "af1b8e45-ad25-4931-8913-ae0d50c537e9"
+    "ClienteId": "a48dd3b0-f478-4c41-9a53-9d883dff5a7a",
+    "LivroId": "bf5cf46a-b3ee-4460-a77f-8afece0a313d"
 }
 
 ### Listar emprestimo

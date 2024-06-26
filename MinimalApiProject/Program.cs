@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MinimalApiProject;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -143,15 +144,21 @@ app.MapPut("/livro/atualizar/{titulo}", ([FromRoute] string titulo, [FromBody] L
 
 // CRUD Emprestimo
 
-app.MapGet("/emprestimo/listar", ([FromServices] AppDbContext ctx) =>
+app.MapGet("/emprestimo/listar", async ([FromServices] AppDbContext ctx) =>
 {
-    if (ctx.Emprestimos.Any())
+    var emprestimos = await ctx.Emprestimos
+                              .Include(e => e.Cliente)
+                              .Include(e => e.Livro)
+                              .ToListAsync();
+    
+    if (emprestimos.Any())
     {
-        List<Emprestimo> emprestimoList = ctx.Emprestimos.ToList();
-        return Results.Ok(emprestimoList);
+        return Results.Ok(emprestimos);
     }
-    return Results.NotFound("Não existem emprestimos na tabela");
+
+    return Results.NotFound("Não existem empréstimos registrados!");
 });
+
 
 app.MapPost("/emprestimo/cadastrar", ([FromServices] AppDbContext ctx, [FromBody] Emprestimo emprestimo) =>
 {

@@ -1,6 +1,7 @@
 import React from 'react';
 import LivroListar from './Components/Pages/Livro/Livro-Consultar';
 import ClienteListar from './Components/Pages/Cliente/Cliente-Consultar';
+import EmprestimoListar from './Components/Pages/Emprestimo/Emprestimo-Consultar';
 
 function App() {
   return (
@@ -9,6 +10,8 @@ function App() {
       <LivroListar></LivroListar>
       <hr></hr>
       <ClienteListar></ClienteListar>
+      <hr />
+      <EmprestimoListar></EmprestimoListar>
     </div>
   );
 }
