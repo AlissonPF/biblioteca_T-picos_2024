@@ -39,7 +39,7 @@ POST http://localhost:5234/livro/cadastrar
 Content-Type: application/json
 
 {
-    "titulo": "Livro1",
+    "titulo": "Livro2",
     "autor": "Autor do Livro 1",
     "isbn": "123",
     "categoria" : "Romance",

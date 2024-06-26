@@ -2,6 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using MinimalApiProject;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// configurar a politica de CORS para liberar o acesso total
+builder.Services.AddCors(
+    options => options.AddPolicy("Acesso Total", configs => configs.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod())
+);
+
+
 builder.Services.AddDbContext<AppDbContext>();
 var app = builder.Build();
 
@@ -196,4 +203,5 @@ app.MapPut("/emprestimo/atualizar/{id}", ([FromRoute] string id, [FromBody] Empr
     return Results.Ok("Emprestimo atualizado");
 });
 
+app.UseCors("Acesso Total");
 app.Run();
