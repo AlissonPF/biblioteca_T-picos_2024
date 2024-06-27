@@ -47,7 +47,7 @@ function EmprestimoListar(){
                     background-color: #ddd;
                 }
             `}</style>
-            <h1>Lista de Clientes</h1>
+            <h1>Lista de Emprestimos</h1>
             <table>
                 <thead>
                     <tr>

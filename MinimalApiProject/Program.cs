@@ -39,13 +39,23 @@ app.MapGet("/cliente/listar", ([FromServices] AppDbContext ctx) =>
     return Results.NotFound("Não existem clientes registrados!");
 });
 
+// buscar cliente
+app.MapGet("/cliente/buscar/{id}", ([FromRoute] string id, [FromServices] AppDbContext ctx ) => {
+
+    Cliente? clienteBuscar = ctx.Clientes.FirstOrDefault(x => x.Id == id);
+    if (clienteBuscar is null){
+        return Results.NotFound("Cliente nao encontrado");
+    }
+    return Results.Ok(clienteBuscar);
+});
+
 // deletar Cliente
-app.MapDelete("/cliente/deletar/{nome}", ( [FromRoute] string nome,
+app.MapDelete("/cliente/deletar/{id}", ( [FromRoute] string id,
     [FromServices] AppDbContext ctx) =>
     {
-        Cliente? clienteExistente = ctx.Clientes.FirstOrDefault(p => p.Nome == nome);
+        Cliente? clienteExistente = ctx.Clientes.Find(id);
 
-        if (clienteExistente == null)
+        if (clienteExistente is null)
         {
             return Results.NotFound("Cliente não encontrado.");
         }
@@ -57,10 +67,10 @@ app.MapDelete("/cliente/deletar/{nome}", ( [FromRoute] string nome,
     });
 
 // alterar Cliente
-app.MapPut("/cliente/atualizar/{Nome}", ([FromRoute] string nome, [FromBody] Cliente clienteAtualizado, [FromServices] AppDbContext ctx) =>
+app.MapPut("/cliente/atualizar/{id}", ([FromRoute] string id, [FromBody] Cliente clienteAtualizado, [FromServices] AppDbContext ctx) =>
 {
 
-    Cliente? clienteExistente = ctx.Clientes.FirstOrDefault(p => p.Nome == nome);
+    Cliente? clienteExistente = ctx.Clientes.Find(id);
 
     if (clienteExistente is null)
     {
@@ -72,6 +82,7 @@ app.MapPut("/cliente/atualizar/{Nome}", ([FromRoute] string nome, [FromBody] Cli
     clienteExistente.Email = clienteAtualizado.Email;
     clienteExistente.Telefone = clienteAtualizado.Telefone;
 
+    ctx.Clientes.Update(clienteExistente);
     ctx.SaveChanges();
     return Results.Ok($"Cliente {clienteExistente.Nome} alterado com sucesso!");
 });
