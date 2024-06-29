@@ -50,7 +50,7 @@ Content-Type: application/json
 GET http://localhost:5234/livro/listar
 
 ### Deletar livro
-DELETE http://localhost:5234/livro/deletar/LivroAtualizado
+DELETE http://localhost:5234/livro/deletar/adf
 
 
 ### Alterar livro
