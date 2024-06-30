@@ -11,6 +11,7 @@ import LivroDeletar from './Components/Pages/Livro/Livro-deletar';
 import EmprestimoCadastrar from './Components/Pages/Emprestimo/Emprestimo-Cadastrar';
 import EmprestimoDeletar from './Components/Pages/Emprestimo/Emprestimo-Deletar';
 import './App.css'; // Importando o arquivo CSS
+import LivroAlterar from './Components/Pages/Livro/Livro-Alterar';
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
           <Route path='/pages/livro/listar' element={<LivroListar />} />
           <Route path='/pages/livro/cadastrar' element={<LivroCadastrar />} />
           <Route path='/pages/livro/deletar' element={<LivroDeletar />} />
+          <Route path='/pages/livro/alterar/:id' element={<LivroAlterar />} />
           <Route path='/pages/emprestimo/listar' element={<EmprestimoListar />} />
           <Route path='/pages/emprestimo/cadastrar' element={<EmprestimoCadastrar />} />
           <Route path='/pages/emprestimo/deletar' element={<EmprestimoDeletar />} />

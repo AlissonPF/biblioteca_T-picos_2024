@@ -1,100 +1,72 @@
 import { useEffect, useState } from "react";
-import { Cliente } from "../../../Models/Cliente";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Livro } from "../../../Models/Livro";
+import { useNavigate, useParams } from "react-router-dom";
 
-function ClienteDeletar(){
+function LivroAlterar() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [titulo, setTitulo] = useState("");
+  const [autor, setAutor] = useState("");
+  const [isbn, setIsbn] = useState("");
+  const [categoria, setCategoria] = useState("");
 
-    const navigate = useNavigate();
-    const[clientes, setClientes] = useState<Cliente[]>([]);
-
-    useEffect(() =>
-        {
-            console.log("O componente foi carregado");
-            carregarCliente();
-            
-    
-        }, []);
-
-    function carregarCliente(){
-        fetch("http://localhost:5234/cliente/listar").then((resposta) => resposta.json()).then((clientes : Cliente[]) =>
-            {
-                setClientes(clientes);
-                console.log("Cliente carregado");
-            })
+  useEffect(() => {
+    if (id) {
+      fetch(`http://localhost:5234/livro/buscar/${id}`)
+        .then((resposta) => resposta.json())
+        .then((livro: Livro) => {
+          setTitulo(livro.titulo);
+          setAutor(livro.autor);
+          setIsbn(livro.isbn);
+        })
+        .catch((error) => {
+          console.error("Erro ao carregar livro:", error);
+        });
     }
+  }, [id]);
 
-    function deletar(id: string): void {
-        console.log(`http://localhost:5234/${id}`);
-        axios.delete<Cliente[]>(`http://localhost:5234/cliente/deletar/${id}`).then((resposta) => {setClientes(resposta.data)});
-    }
-    // function deletar(id : string){
-    //     console.log("id: " + id);
-    //     axios.delete(`http://localhost:5234/cliente/deletar/${id}`) .then((resposta) => {
-    //         console.log(resposta.data);
-    //         setClientes(resposta.data);
-    //     });
-    // }
-    
+  function alterarLivro(e: any) {
+    const livro: Livro = {
+      id: id,
+      titulo: titulo,
+      autor: autor,
+      isbn: isbn,
+    };
 
-    return (
-        <div>
-            <style>{`
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-top: 20px;
-                }
-                th, td {
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                    text-align: left;
-                }
-                th {
-                    background-color: #f2f2f2;
-                    font-weight: bold;
-                }
-                tr:nth-child(even) {
-                    background-color: #f9f9f9;
-                }
-                tr:hover {
-                    background-color: #ddd;
-                }
-            `}</style>
-            <h1>Deletar Clientes</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Endereco</th>
-                        <th>Email</th>
-                        <th>Telefone</th>
-                        <th>Data de Cadastro</th>
-                        <th>Deletar</th>
-                        <th>Alterar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {clientes.map((cliente, index) => (
-                        <tr key={cliente.id || index}>
-                            <td>{cliente.id}</td>
-                            <td>{cliente.nome}</td>
-                            <td>{cliente.endereco}</td>
-                            <td>{cliente.email}</td>
-                            <td>{cliente.telefone}</td>
-                            <td>{cliente.dataCadastro}</td>
-                            <td><button onClick={() => {deletar(cliente.id!);}} >Deletar</button></td>
-                            <td>
-                                <Link to={`/pages/cliente/alterar/${cliente.id}`}>Alterar</Link>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
+    fetch(`http://localhost:5234/livro/atualizar/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(livro),
+    })
+      .then((resposta) => resposta.json())
+      .then((livro: Livro) => {
+        navigate("/pages/livro/listar");
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar livro:", error);
+      });
+    e.preventDefault();
+  }
+
+  return (
+    <div>
+      <h1>Alterar Livro</h1>
+      <form onSubmit={alterarLivro}>
+        <label>Título:</label>
+        <input type="text" value={titulo} onChange={(e: any) => setTitulo(e.target.value)} required />
+
+        <label>Autor:</label>
+        <input type="text" value={autor} onChange={(e: any) => setAutor(e.target.value)} required />
+
+        <label>ISBN:</label>
+        <input type="text" value={isbn} onChange={(e: any) => setIsbn(e.target.value)} required />
+
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+  );
 }
 
-export default ClienteDeletar;
+export default LivroAlterar;

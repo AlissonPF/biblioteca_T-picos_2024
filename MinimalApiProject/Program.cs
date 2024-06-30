@@ -136,10 +136,10 @@ app.MapDelete("/livro/deletar/{id}", ( [FromRoute] string id,
 
 
 // alterar Livro
-app.MapPut("/livro/atualizar/{titulo}", ([FromRoute] string titulo, [FromBody] Livro livroAtualizado, [FromServices] AppDbContext ctx) =>
+app.MapPut("/livro/atualizar/{id}", ([FromRoute] string id, [FromBody] Livro livroAtualizado, [FromServices] AppDbContext ctx) =>
 {
 
-    Livro? livroExistente = ctx.Livros.FirstOrDefault(p => p.Titulo == titulo);
+    Livro? livroExistente = ctx.Livros.FirstOrDefault(p => p.Id == id);
 
     if (livroExistente is null)
     {
@@ -150,7 +150,6 @@ app.MapPut("/livro/atualizar/{titulo}", ([FromRoute] string titulo, [FromBody] L
     livroExistente.Autor = livroAtualizado.Autor;
     livroExistente.ISBN = livroAtualizado.ISBN;
     livroExistente.Categoria = livroAtualizado.Categoria;
-    livroExistente.Status = livroAtualizado.Status;
 
     ctx.SaveChanges();
     return Results.Ok($"Livro {livroAtualizado.Titulo} alterado com sucesso!");
