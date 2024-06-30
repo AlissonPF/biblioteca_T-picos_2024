@@ -3,7 +3,7 @@ export interface Livro {
     titulo: string;
     autor: string;
     isbn: string;
-    categoria: string;
     status?: string;
     dataCadastro?: string;
+    categoriaId?: string
 }

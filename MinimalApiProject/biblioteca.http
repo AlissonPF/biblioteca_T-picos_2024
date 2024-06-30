@@ -42,8 +42,8 @@ Content-Type: application/json
     "titulo": "Livro1",
     "autor": "Autor do Livro 1",
     "isbn": "123",
-    "categoria" : "Romance",
-    "status" : "Vendido"
+    "status" : "Vendido",
+    "categoriaId" : "967ad032-a6b6-4a4c-b00a-e14dc89ef705"
 }
 
 ### Listar todos os livros
@@ -61,7 +61,6 @@ Content-Type: application/json
     "titulo": "LivroAtualizado",
     "autor": "Autor do Livro Atualizado",
     "isbn": "12345",
-    "categoria" : "Suspense",
     "status" : "A venda"
 }
 
@@ -101,7 +100,7 @@ POST http://localhost:5234/categoria/cadastrar
 Content-Type: application/json
 
 {
-    "nome" : "Infantil"
+    "nome" : "Suspense"
 }
 
 ### Deletar Categorias

@@ -21,10 +21,10 @@ function App() {
             </li>
             <li><Link to={"/pages/cliente/listar"}>Listar Cliente</Link></li>
             <li><Link to={"/pages/cliente/cadastrar"}>Cadastrar Clientes</Link></li>
-            <li><Link to={"/pages/cliente/deletar"}>Deletar Clientes</Link></li>
+            <li><Link to={"/pages/cliente/deletar"}>Deletar ou Alterar Clientes</Link></li>
             <li><Link to={"/pages/livro/listar"}>Listar Livros</Link></li>
             <li><Link to={"/pages/livro/cadastrar"}>Cadastrar Livro</Link></li>
-            <li><Link to={"/pages/livro/deletar"}>Deletar Livros</Link></li>
+            <li><Link to={"/pages/livro/deletar"}>Deletar ou Alterar Livros</Link></li>
           </ul>
         </nav>
         <Routes>
@@ -38,6 +38,7 @@ function App() {
         </Routes>
       </BrowserRouter>      
       <hr />
+      <h1>Emprestimos</h1>
       <EmprestimoListar></EmprestimoListar>
     </div>
   );

@@ -6,7 +6,9 @@ public class Livro
   public string? Titulo { get; set; }
   public string? Autor { get; set; }
   public string? ISBN { get; set; }
-  public string? Categoria { get; set; }
+  public string? CategoriaId { get; set; }
+
+  public Categoria? Categoria { get; set; }
   public string? Status { get; set; } // Disponível, emprestado, reservado, etc.
   public DateTime DataCadastro { get; set; }
 
@@ -16,13 +18,12 @@ public class Livro
     DataCadastro = DateTime.Now;
   }
 
-  public Livro(string titulo, string autor, string isbn, string categoria)
+  public Livro(string titulo, string autor, string isbn)
   {
     Id = Guid.NewGuid().ToString();
     Titulo = titulo;
     Autor = autor;
     ISBN = isbn;
-    Categoria = categoria;
     Status = "Disponível";
     DataCadastro = DateTime.Now;
   }
