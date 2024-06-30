@@ -9,6 +9,7 @@ import ClienteAlterar from './Components/Pages/Cliente/Cliente-Alterar';
 import LivroCadastrar from './Components/Pages/Livro/Livro-cadastrar';
 import LivroDeletar from './Components/Pages/Livro/Livro-deletar';
 import EmprestimoCadastrar from './Components/Pages/Emprestimo/Emprestimo-Cadastrar';
+import EmprestimoDeletar from './Components/Pages/Emprestimo/Emprestimo-Deletar';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <ul>
               <li><Link to={"/pages/emprestimo/listar"}>Listar Empréstimos</Link></li>
               <li><Link to={"/pages/emprestimo/cadastrar"}>Realizar Empréstimo</Link></li>
+              <li><Link to={"/pages/emprestimo/deletar"}>Devolver ou Renovar Emprestimos</Link></li>
             </ul>
           </ul>
         </nav>
@@ -49,6 +51,7 @@ function App() {
           <Route path='/pages/livro/deletar' element={<LivroDeletar />} />
           <Route path='/pages/emprestimo/listar' element={<EmprestimoListar />} />
           <Route path='/pages/emprestimo/cadastrar' element={<EmprestimoCadastrar />} />
+          <Route path='/pages/emprestimo/deletar' element={<EmprestimoDeletar />} />
         </Routes>
       </BrowserRouter>      
       <hr />

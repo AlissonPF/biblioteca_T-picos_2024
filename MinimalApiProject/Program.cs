@@ -228,22 +228,39 @@ app.MapPost("/emprestimo/cadastrar", ([FromServices] AppDbContext ctx, [FromBody
     return Results.Created("Emprestimo cadastrado com sucesso! ", emprestimo);
 });
 
-app.MapDelete("/emprestimo/deletar/{id}", ([FromServices] AppDbContext ctx, [FromRoute] string id) =>
+app.MapPut("/emprestimo/atualizar/{id}", async ([FromServices] AppDbContext ctx, string id) =>
 {
-    Emprestimo? emprestimoExistente = ctx.Emprestimos.FirstOrDefault(p => p.Id == id);
+    var emprestimo = await ctx.Emprestimos
+                              .FirstOrDefaultAsync(e => e.Id == id);
 
-        if (emprestimoExistente == null)
-        {
-            return Results.NotFound("Emprestimo não encontrado.");
-        }
+    if (emprestimo == null)
+    {
+        return Results.NotFound("Empréstimo não encontrado.");
+    }
 
-        ctx.Emprestimos.Remove(emprestimoExistente);
-        ctx.SaveChanges();
+    // Verifica se a data de devolução é 14 dias após a data de empréstimo
+    var diff = (emprestimo.DataDevolucaoPrevista - emprestimo.DataEmprestimo).Days;
 
-        return Results.Ok("Emprestimo deletado com sucesso!");
+    if (diff == 14)
+    {
+        // Adiciona mais 14 dias na data de devolução
+        emprestimo.DataDevolucaoPrevista = emprestimo.DataDevolucaoPrevista.AddDays(14);
+        await ctx.SaveChangesAsync();
+        return Results.Ok("Data de devolução atualizada com sucesso.");
+    }
+    else if (diff == 28)
+    {
+        // Se já foi adicionado antes, não permite mais renovação
+        return Results.BadRequest("Este empréstimo não pode mais ser renovado.");
+    }
+    else
+    {
+        // Se a diferença de dias não é 14 ou 28, retorna um erro genérico
+        return Results.BadRequest("A data de devolução não pode ser atualizada.");
+    }
 });
 
-app.MapPut("/emprestimo/atualizar/{id}", ([FromRoute] string id, [FromBody] Emprestimo emprestimoAtualizado, [FromServices] AppDbContext ctx) =>
+app.MapPut("/emprestimo/deletar/{id}", ([FromRoute] string id, [FromServices] AppDbContext ctx) =>
 {
 
     Emprestimo? emprestimoExiste = ctx.Emprestimos.FirstOrDefault(p => p.Id == id);
@@ -252,8 +269,11 @@ app.MapPut("/emprestimo/atualizar/{id}", ([FromRoute] string id, [FromBody] Empr
     {
         return Results.NotFound("Emprestimo nao encontrado!");
     }
-
-    emprestimoExiste.StatusEmprestimo = emprestimoAtualizado.StatusEmprestimo;
+    if(emprestimoExiste.StatusEmprestimo == "Pendente"){
+    emprestimoExiste.StatusEmprestimo = "Devolvido";
+    } else if (emprestimoExiste.StatusEmprestimo == "Devolvido"){
+        return Results.Ok("Emprestimo já devolvido!");
+    }
 
     ctx.SaveChanges();
     return Results.Ok("Emprestimo atualizado");
