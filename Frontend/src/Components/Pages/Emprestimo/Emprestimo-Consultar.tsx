@@ -72,9 +72,9 @@ function EmprestimoListar(){
                     {emprestimos.map((emprestimo, index) => (
                         <tr key={emprestimo.id || index}>
                             <td>{emprestimo.id}</td>
-                            <td>{emprestimo.clienteId}</td>
+                            <td>{emprestimo.cliente.id}</td>
                             <td>{emprestimo.cliente?.nome}</td>
-                            <td>{emprestimo.livroId}</td>
+                            <td>{emprestimo.livro.id}</td>
                             <td>{emprestimo.livro?.titulo}</td>
                             <td>{emprestimo.dataEmprestimo}</td>
                             <td>{emprestimo.dataDevolucaoPrevista}</td>

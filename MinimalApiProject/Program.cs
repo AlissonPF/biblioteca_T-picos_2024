@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MinimalApiProject;
@@ -159,7 +160,7 @@ app.MapPut("/livro/atualizar/{titulo}", ([FromRoute] string titulo, [FromBody] L
 
 // CRUD Emprestimo
 
-app.MapGet("/emprestimo/listar", async ([FromServices] AppDbContext ctx) =>
+/*app.MapGet("/emprestimo/listar", async ([FromServices] AppDbContext ctx) =>
 {
     var emprestimos = await ctx.Emprestimos
                               .Include(e => e.Cliente)
@@ -169,6 +170,39 @@ app.MapGet("/emprestimo/listar", async ([FromServices] AppDbContext ctx) =>
     if (emprestimos.Any())
     {
         return Results.Ok(emprestimos);
+    }
+
+    return Results.NotFound("Não existem empréstimos registrados!");
+});*/
+
+app.MapGet("/emprestimo/listar", async ([FromServices] AppDbContext ctx) =>
+{
+    var emprestimos = await ctx.Emprestimos
+                              .Include(e => e.Cliente)
+                              .Include(e => e.Livro)
+                              .ToListAsync();
+
+    if (emprestimos.Any())
+    {
+        var emprestimosFormatados = emprestimos.Select(e => new
+        {
+            e.Id,
+            Cliente = new 
+            {
+                e.Cliente.Id,
+                e.Cliente.Nome
+            },
+            Livro = new
+            {
+                e.Livro.Id,
+                e.Livro.Titulo
+            },
+            DataEmprestimo = e.DataEmprestimo.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+            DataDevolucaoPrevista = e.DataDevolucaoPrevista.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+            e.StatusEmprestimo
+        });
+
+        return Results.Ok(emprestimosFormatados);
     }
 
     return Results.NotFound("Não existem empréstimos registrados!");
