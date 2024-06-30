@@ -32,7 +32,7 @@ function ClienteDeletar(){
                 });
         }
     function deletar(id: string) {
-        axios.delete(`http://localhost:5234/livro/deletar/${id}`)
+        axios.delete(`http://localhost:5234/cliente/deletar/${id}`)
             .then((resposta) => {
                 console.log("Livro deletado:", resposta.data);
                 carregarCliente(); // Recarrega a lista após deletar
