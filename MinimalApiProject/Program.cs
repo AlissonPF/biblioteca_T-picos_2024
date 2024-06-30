@@ -225,5 +225,40 @@ app.MapPut("/emprestimo/atualizar/{id}", ([FromRoute] string id, [FromBody] Empr
     return Results.Ok("Emprestimo atualizado");
 });
 
+// Categorias
+
+app.MapPost("/categoria/cadastrar", ([FromBody] Categoria categoria, [FromServices] AppDbContext ctx) =>
+{
+
+    ctx.Categorias.Add(categoria);
+    ctx.SaveChanges();
+    return Results.Created("", categoria);
+});
+
+app.MapGet("/categoria/listar",
+    ([FromServices] AppDbContext ctx) =>
+{
+    if (ctx.Categorias.Any())
+    {
+        return Results.Ok(ctx.Categorias.ToList());
+    }
+    return Results.NotFound("Tabela vazia!");
+});
+
+app.MapDelete("/categoria/deletar/{id}", ([FromServices] AppDbContext ctx, [FromRoute] string id) =>
+{
+    Categoria? categoriaExistente = ctx.Categorias.FirstOrDefault(p => p.Id == id);
+
+        if (categoriaExistente == null)
+        {
+            return Results.NotFound("Categoria não encontrado.");
+        }
+
+        ctx.Categorias.Remove(categoriaExistente);
+        ctx.SaveChanges();
+
+        return Results.Ok("Categoria deletado com sucesso!");
+});
+
 app.UseCors("Acesso Total");
 app.Run();

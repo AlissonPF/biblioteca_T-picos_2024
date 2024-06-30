@@ -6,8 +6,8 @@ POST http://localhost:5234/cliente/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "Cliente2",
-    "endereco": "Rua do cliente 2",
+    "nome": "Cliente1",
+    "endereco": "Rua do cliente 1",
     "email": "cliente1@email.com",
     "telefone" : "99543-6421"
 }
@@ -39,7 +39,7 @@ POST http://localhost:5234/livro/cadastrar
 Content-Type: application/json
 
 {
-    "titulo": "Livro2",
+    "titulo": "Livro1",
     "autor": "Autor do Livro 1",
     "isbn": "123",
     "categoria" : "Romance",
@@ -90,3 +90,19 @@ Content-Type: application/json
 {
     "StatusEmprestimo": "devolvido"
 }
+
+# Categorias #
+
+### Listar Categorias
+GET http://localhost:5234/categoria/listar
+
+### Cadastrar Categoria
+POST http://localhost:5234/categoria/cadastrar
+Content-Type: application/json
+
+{
+    "nome" : "Infantil"
+}
+
+### Deletar Categorias
+DELETE  http://localhost:5234/categoria/deletar/c9fd4635-4f4d-44a7-acd5-d908b760a419

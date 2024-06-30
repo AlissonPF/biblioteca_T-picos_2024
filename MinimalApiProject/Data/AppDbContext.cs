@@ -6,6 +6,7 @@ public class AppDbContext : DbContext
   public DbSet<Cliente> Clientes { get; set; }
   public DbSet<Livro> Livros { get; set; }
   public DbSet<Emprestimo> Emprestimos { get; set; }
+  public DbSet<Categoria> Categorias { get; set; }
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
