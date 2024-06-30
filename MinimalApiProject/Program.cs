@@ -114,21 +114,18 @@ app.MapGet("/livro/listar", ([FromServices] AppDbContext ctx) =>
 });
 
 // deletar Livro
-app.MapDelete("/livro/deletar/{titulo}", ( [FromRoute] string titulo,
-    [FromServices] AppDbContext ctx) =>
+app.MapDelete("/livro/deletar/{titulo}", ([FromRoute] string titulo, [FromServices] AppDbContext ctx) =>
+{
+    var livroExistente = ctx.Livros.FirstOrDefault(p => p.Titulo == titulo);
+    if (livroExistente is null)
     {
-        Livro? livroExistente = ctx.Livros.FirstOrDefault(p => p.Titulo == titulo);
+        return Results.NotFound("Livro não encontrado.");
+    }
+    ctx.Livros.Remove(livroExistente);
+    ctx.SaveChanges();
+    return Results.Ok("Livro deletado com sucesso!");
+});
 
-        if (livroExistente == null)
-        {
-            return Results.NotFound("Livro não encontrado.");
-        }
-
-        ctx.Livros.Remove(livroExistente);
-        ctx.SaveChanges();
-
-        return Results.Ok("Livro deletado com sucesso!");
-    });
 
 // alterar Livro
 app.MapPut("/livro/atualizar/{titulo}", ([FromRoute] string titulo, [FromBody] Livro livroAtualizado, [FromServices] AppDbContext ctx) =>

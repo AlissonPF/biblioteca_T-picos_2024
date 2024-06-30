@@ -1,9 +1,9 @@
 export interface Livro {
-    id: string;
+    id?: string;
     titulo: string;
     autor: string;
     isbn: string;
     categoria: string;
-    status: string;
+    status?: string;
     dataCadastro?: string;
 }
