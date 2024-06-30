@@ -13,13 +13,20 @@ function ClienteListar(){
     
         }, []);
 
-    function carregarCliente(){
-        fetch("http://localhost:5234/cliente/listar").then((resposta) => resposta.json()).then((clientes : Cliente[]) =>
-            {
-                setClientes(clientes);
-                console.log("Cliente carregado");
-            })
-    }
+        function carregarCliente() {
+            fetch("http://localhost:5234/cliente/listar")
+                .then((resposta) => resposta.json())
+                .then((dados) => {
+                    console.log("Dados recebidos da API:", dados);
+                    if (Array.isArray(dados)) {
+                        setClientes(dados);
+                        console.log("Clientes carregados");
+                    } else {
+                        setClientes([]); // Inicializa como array vazio se a resposta não for um array
+                        console.warn("Dados recebidos não são um array, inicializando como array vazio");
+                    }
+                });
+        }
 
     return (
         <div>

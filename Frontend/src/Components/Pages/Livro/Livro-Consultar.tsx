@@ -13,13 +13,20 @@ function LivroListar(){
     
         }, []);
 
-    function carregarLivro(){
-        fetch("http://localhost:5234/livro/listar").then((resposta) => resposta.json()).then((livros : Livro[]) =>
-            {
-                setLivros(livros);
-                console.log("livro carregado");
-            })
-    }
+        function carregarLivro() {
+            fetch("http://localhost:5234/livro/listar")
+                .then((resposta) => resposta.json())
+                .then((dados) => {
+                    console.log("Dados recebidos da API:", dados);
+                    if (Array.isArray(dados)) {
+                        setLivros(dados);
+                        console.log("Livros carregados");
+                    } else {
+                        setLivros([]); // Inicializa como array vazio se a resposta não for um array
+                        console.warn("Dados recebidos não são um array, inicializando como array vazio");
+                    }
+                });
+        }
 
     return (
         <div>

@@ -17,18 +17,30 @@ function ClienteDeletar(){
     
         }, []);
 
-    function carregarCliente(){
-        fetch("http://localhost:5234/cliente/listar").then((resposta) => resposta.json()).then((clientes : Cliente[]) =>
-            {
-                setClientes(clientes);
-                console.log("Cliente carregado");
+        function carregarCliente() {
+            fetch("http://localhost:5234/cliente/listar")
+                .then((resposta) => resposta.json())
+                .then((dados) => {
+                    console.log("Dados recebidos da API:", dados);
+                    if (Array.isArray(dados)) {
+                        setClientes(dados);
+                        console.log("Clientes carregados");
+                    } else {
+                        setClientes([]); // Inicializa como array vazio se a resposta não for um array
+                        console.warn("Dados recebidos não são um array, inicializando como array vazio");
+                    }
+                });
+        }
+    function deletar(id: string) {
+        axios.delete(`http://localhost:5234/cliente/deletar/${id}`)
+            .then((resposta) => {
+                console.log("Livro deletado:", resposta.data);
+                carregarCliente(); // Recarrega a lista após deletar
             })
-    }
-
-    function deletar(id: string): void {
-        console.log(`http://localhost:5234/${id}`);
-        axios.delete<Cliente[]>(`http://localhost:5234/cliente/deletar/${id}`).then((resposta) => {setClientes(resposta.data)});
-    }
+            .catch((error) => {
+                console.error("Erro ao deletar livro:", error);
+            });
+      }
     // function deletar(id : string){
     //     console.log("id: " + id);
     //     axios.delete(`http://localhost:5234/cliente/deletar/${id}`) .then((resposta) => {

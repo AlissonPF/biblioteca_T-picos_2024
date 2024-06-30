@@ -15,13 +15,20 @@ function EmprestimoListar(){
     
         }, []);
 
-    function carregarEmprestimo(){
-        fetch("http://localhost:5234/emprestimo/listar").then((resposta) => resposta.json()).then((emprestimos : Emprestimo[]) =>
-            {
-                setEmprestimos(emprestimos);
-                console.log("Emprestimo carregado");
-            })
-    }
+        function carregarEmprestimo() {
+            fetch("http://localhost:5234/emprestimo/listar")
+                .then((resposta) => resposta.json())
+                .then((dados) => {
+                    console.log("Dados recebidos da API:", dados);
+                    if (Array.isArray(dados)) {
+                        setEmprestimos(dados);
+                        console.log("Emprestimos carregados");
+                    } else {
+                        setEmprestimos([]); // Inicializa como array vazio se a resposta não for um array
+                        console.warn("Dados recebidos não são um array, inicializando como array vazio");
+                    }
+                });
+        }
 
     return (
         <div>

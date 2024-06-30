@@ -16,7 +16,7 @@ Content-Type: application/json
 GET http://localhost:5234/cliente/listar
 
 ### Deletar cliente
-DELETE http://localhost:5234/cliente/deletar/ClienteAtualizado
+DELETE http://localhost:5234/cliente/deletar/683f0886-56e5-4bb8-a998-eaba4f5d0c23
 
 
 ### Alterar Cliente
@@ -50,7 +50,7 @@ Content-Type: application/json
 GET http://localhost:5234/livro/listar
 
 ### Deletar livro
-DELETE http://localhost:5234/livro/deletar/adf
+DELETE http://localhost:5234/livro/deletar/28f08c63-5063-4f1a-897a-bba6c4691943
 
 
 ### Alterar livro
@@ -73,8 +73,8 @@ POST http://localhost:5234/emprestimo/cadastrar
 Content-Type: application/json
 
 {
-    "ClienteId": "a48dd3b0-f478-4c41-9a53-9d883dff5a7a",
-    "LivroId": "bf5cf46a-b3ee-4460-a77f-8afece0a313d"
+    "ClienteId": "683f0886-56e5-4bb8-a998-eaba4f5d0c23",
+    "LivroId": "eb42b5e5-4229-4841-b599-50b8f4733874"
 }
 
 ### Listar emprestimo
