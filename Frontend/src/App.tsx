@@ -36,9 +36,7 @@ function App() {
           <Route path='/pages/livro/cadastrar' element={<LivroCadastrar></LivroCadastrar>} />
           <Route path='/pages/livro/deletar' element={<LivroDeletar></LivroDeletar>} />
         </Routes>
-      </BrowserRouter>
-      <hr></hr>
-      
+      </BrowserRouter>      
       <hr />
       <EmprestimoListar></EmprestimoListar>
     </div>
