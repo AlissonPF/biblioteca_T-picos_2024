@@ -125,7 +125,7 @@ function EmprestimoDeletar() {
                     background-color: #ddd;
                 }
             `}</style>
-      <h1>Deletar Empréstimos</h1>
+      <h1>Devolver ou Renovar Emprestimos</h1>
       {erro && <p style={{ color: "red" }}>{erro}</p>}
       {mensagem && <p style={{ color: "green" }}>{mensagem}</p>}
       <table>
