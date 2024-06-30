@@ -1,43 +1,62 @@
 import React from 'react';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import LivroListar from './Components/Pages/Livro/Livro-Consultar';
 import ClienteListar from './Components/Pages/Cliente/Cliente-Consultar';
 import EmprestimoListar from './Components/Pages/Emprestimo/Emprestimo-Consultar';
 import ClienteCadastrar from './Components/Pages/Cliente/Cliente-Cadastrar';
 import ClienteDeletar from './Components/Pages/Cliente/Cliente-Deletar';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import ClienteAlterar from './Components/Pages/Cliente/Cliente-Alterar';
 import LivroCadastrar from './Components/Pages/Livro/Livro-cadastrar';
 import LivroDeletar from './Components/Pages/Livro/Livro-deletar';
 import EmprestimoCadastrar from './Components/Pages/Emprestimo/Emprestimo-Cadastrar';
 import EmprestimoDeletar from './Components/Pages/Emprestimo/Emprestimo-Deletar';
+import './App.css'; // Importando o arquivo CSS
 
 function App() {
   return (
-    <div>
-      <h1>Biblioteca</h1>
+    <div className="app-container">
+      <h1 className="header">Biblioteca</h1>
       <BrowserRouter>
-        <nav>
-          <ul>
-            <li>
-              <Link to={"/"}>Home</Link>
+        <nav className="nav">
+          <ul className="nav-list">
+            <li className="nav-item">
+              <Link to="/" className="nav-link">Home</Link>
             </li>
-            <li><strong>Clientes</strong></li>
-            <ul>
-              <li><Link to={"/pages/cliente/listar"}>Listar Clientes</Link></li>
-              <li><Link to={"/pages/cliente/cadastrar"}>Cadastrar Cliente</Link></li>
-              <li><Link to={"/pages/cliente/deletar"}>Deletar ou Alterar Clientes</Link></li>
+            <li className="nav-section-title">Clientes</li>
+            <ul className="nav-sublist">
+              <li className="nav-subitem">
+                <Link to="/pages/cliente/listar" className="nav-sublink">Listar Clientes</Link>
+              </li>
+              <li className="nav-subitem">
+                <Link to="/pages/cliente/cadastrar" className="nav-sublink">Cadastrar Cliente</Link>
+              </li>
+              <li className="nav-subitem">
+                <Link to="/pages/cliente/deletar" className="nav-sublink">Deletar ou Alterar Clientes</Link>
+              </li>
             </ul>
-            <li><strong>Livros</strong></li>
-            <ul>
-              <li><Link to={"/pages/livro/listar"}>Listar Livros</Link></li>
-              <li><Link to={"/pages/livro/cadastrar"}>Cadastrar Livro</Link></li>
-              <li><Link to={"/pages/livro/deletar"}>Deletar ou Alterar Livros</Link></li>
+            <li className="nav-section-title">Livros</li>
+            <ul className="nav-sublist">
+              <li className="nav-subitem">
+                <Link to="/pages/livro/listar" className="nav-sublink">Listar Livros</Link>
+              </li>
+              <li className="nav-subitem">
+                <Link to="/pages/livro/cadastrar" className="nav-sublink">Cadastrar Livro</Link>
+              </li>
+              <li className="nav-subitem">
+                <Link to="/pages/livro/deletar" className="nav-sublink">Deletar ou Alterar Livros</Link>
+              </li>
             </ul>
-            <li><strong>Empréstimos</strong></li>
-            <ul>
-              <li><Link to={"/pages/emprestimo/listar"}>Listar Empréstimos</Link></li>
-              <li><Link to={"/pages/emprestimo/cadastrar"}>Realizar Empréstimo</Link></li>
-              <li><Link to={"/pages/emprestimo/deletar"}>Devolver ou Renovar Emprestimos</Link></li>
+            <li className="nav-section-title">Empréstimos</li>
+            <ul className="nav-sublist">
+              <li className="nav-subitem">
+                <Link to="/pages/emprestimo/listar" className="nav-sublink">Listar Empréstimos</Link>
+              </li>
+              <li className="nav-subitem">
+                <Link to="/pages/emprestimo/cadastrar" className="nav-sublink">Realizar Empréstimo</Link>
+              </li>
+              <li className="nav-subitem">
+                <Link to="/pages/emprestimo/deletar" className="nav-sublink">Devolver ou Renovar Empréstimos</Link>
+              </li>
             </ul>
           </ul>
         </nav>
@@ -54,7 +73,9 @@ function App() {
           <Route path='/pages/emprestimo/deletar' element={<EmprestimoDeletar />} />
         </Routes>
       </BrowserRouter>      
-      <hr />
+      <footer className="footer">
+        <p>Feito por Alisson e Erik</p>
+      </footer>
     </div>
   );
 }
