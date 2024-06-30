@@ -73,7 +73,6 @@ function LivroListar() {
             <th>Autor</th>
             <th>ISBN</th>
             <th>Categoria</th>
-            <th>Status</th>
             <th>Data de Cadastro</th>
           </tr>
         </thead>
@@ -85,7 +84,6 @@ function LivroListar() {
               <td>{livro.autor}</td>
               <td>{livro.isbn}</td>
               <td>{obterNomeCategoria(livro.categoriaId || "")}</td>
-              <td>{livro.status}</td>
               <td>{livro.dataCadastro}</td>
             </tr>
           ))}

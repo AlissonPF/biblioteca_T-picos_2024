@@ -11,6 +11,7 @@ function EmprestimoDeletar() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [livros, setLivros] = useState<Livro[]>([]);
   const [erro, setErro] = useState<string | null>(null);
+  const [mensagem, setMensagem] = useState<string | null>(null);
 
   useEffect(() => {
     carregarEmprestimos();
@@ -63,7 +64,13 @@ function EmprestimoDeletar() {
       });
   }
 
-  function deletarEmprestimo(id: string) {
+  function deletarEmprestimo(id: string, status: string) {
+    
+    if (status === "Devolvido") {
+        setMensagem("Este empréstimo já foi devolvido!");
+        return;
+      }
+
     axios.put(`http://localhost:5234/emprestimo/deletar/${id}`)
       .then(() => {
         carregarEmprestimos(); // Recarrega a lista após deletar
@@ -120,6 +127,7 @@ function EmprestimoDeletar() {
             `}</style>
       <h1>Deletar Empréstimos</h1>
       {erro && <p style={{ color: "red" }}>{erro}</p>}
+      {mensagem && <p style={{ color: "green" }}>{mensagem}</p>}
       <table>
         <thead>
           <tr>
@@ -143,7 +151,7 @@ function EmprestimoDeletar() {
               <td>{emprestimo.dataDevolucaoPrevista}</td>
               <td>{emprestimo.statusEmprestimo}</td>
               <td>
-                <button onClick={() => deletarEmprestimo(emprestimo.id!)}>Deletar</button>
+                <button onClick={() => deletarEmprestimo(emprestimo.id!, emprestimo.statusEmprestimo)}>Deletar</button>
               </td>
               <td>
                 <button onClick={() => atualizarEmprestimo(emprestimo.id!)}>Atualizar</button>
